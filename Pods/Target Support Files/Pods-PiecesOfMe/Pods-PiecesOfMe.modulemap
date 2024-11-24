@@ -1,0 +1,6 @@
+framework module Pods_PiecesOfMe {
+  umbrella header "Pods-PiecesOfMe-umbrella.h"
+
+  export *
+  module * { export * }
+}
