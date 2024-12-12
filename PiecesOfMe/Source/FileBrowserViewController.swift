@@ -9,36 +9,44 @@ import UIKit
 
 import SnapKit
 
-// MARK: - Models
-enum ContentType {
-    case folder
-    case item
-}
-
-struct Directory {
-    let name: String
-    var folders: [Directory]
-    var items: [Item]
-}
-
-struct Item {
-    let name: String
-//    let image: UIImage?
-//    let date: TimeInterval
-}
-
 // MARK: - FileBrowserViewController
 final class FileBrowserViewController: UIViewController {
     
     // MARK: - Properties
-    private var directory: Directory
-    private lazy var tableView: UITableView = createTableView()
-    private lazy var createButton: UIButton = createAddButton()
+    private var isFirstScreen: Bool = true
+    private var folder: FolderEntity
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return tableView
+    }()
+    
+    private lazy var createButton: UIButton = {
+        let button = UIButton()
+        //        /button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        //        button.backgroundColor = UIColor(red: 138/255, green: 176/255, blue: 167/255, alpha: 1)
+        button.addTarget(self, action: #selector(openAddItemView), for: .touchUpInside)
+        return button
+    }()
 
     // MARK: - Initializer
-    init(directory: Directory) {
-        self.directory = directory
+    init(folder: FolderEntity) {
+        self.folder = folder
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(folder: FolderEntity?) {
+        if let folder = folder {
+            self.init(folder: folder)
+        } else {
+            print("이러면 안됨")
+            self.init(folder: FolderEntity.emptyFolder)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -51,62 +59,50 @@ final class FileBrowserViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+//        ASD()
+    }
+    
     // MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = .white
-        title = directory.name
+        title = folder.name
+        navigationItem.largeTitleDisplayMode = .always
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: createButton)
         
         view.addSubview(tableView)
-        setupTableViewConstraints()
-    }
-
-    private func setupTableViewConstraints() {
+        
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
-    private func createAddButton() -> UIButton {
-        let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = UIColor(red: 138/255, green: 176/255, blue: 167/255, alpha: 1)
-        button.addTarget(self, action: #selector(openAddItemView), for: .touchUpInside)
-        return button
-    }
-    
-    private func createTableView() -> UITableView {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return tableView
-    }
-
-    // MARK: - Actions
-    @objc private func openAddItemView() {
-        let addItemVC = AddItemViewController()
-        navigationController?.pushViewController(addItemVC, animated: true)
+    private func ASD() {
+        if !isFirstScreen {
+            folder = PersistenceController.shared.fetch()
+            tableView.reloadData()
+        }
+        isFirstScreen = false
     }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 extension FileBrowserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return directory.folders.count + directory.items.count
+        return folder.subFolders.count + folder.preferences.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let isFolder = indexPath.row < directory.folders.count
+        let isFolder = indexPath.row < folder.subFolders.count
         
         if isFolder {
-            let folder = directory.folders[indexPath.row]
+            let folder = folder.subFolders[indexPath.row]
             cell.textLabel?.text = "📁 \(folder.name)"
         } else {
-            let itemIndex = indexPath.row - directory.folders.count
-            let item = directory.items[itemIndex]
+            let itemIndex = indexPath.row - folder.subFolders.count
+            let item = folder.preferences[itemIndex]
             cell.textLabel?.text = "📄 \(item.name)"
         }
         
@@ -114,15 +110,23 @@ extension FileBrowserViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row < directory.folders.count {
-            let selectedFolder = directory.folders[indexPath.row]
-            let nextVC = FileBrowserViewController(directory: selectedFolder)
+        if indexPath.row < folder.subFolders.count {
+            let selectedFolder = folder.subFolders[indexPath.row]
+            let nextVC = FileBrowserViewController(folder: selectedFolder)
             nextVC.navigationController?.navigationBar.prefersLargeTitles = false
             navigationController?.pushViewController(nextVC, animated: true)
         } else {
-            let itemIndex = indexPath.row - directory.folders.count
-            let selectedItem = directory.items[itemIndex]
+            let itemIndex = indexPath.row - folder.subFolders.count
+            let selectedItem = folder.preferences[itemIndex]
             print("Selected item: \(selectedItem.name)")
         }
+    }
+}
+
+extension FileBrowserViewController {
+    // MARK: - Actions
+    @objc private func openAddItemView() {
+        let addItemVC = AddItemViewController(parentFolder: folder)
+        navigationController?.pushViewController(addItemVC, animated: true)
     }
 }

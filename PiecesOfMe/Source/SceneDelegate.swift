@@ -19,17 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         // UIWindow 초기화 및 루트 뷰 컨트롤러 설정
-        window = UIWindow(windowScene: windowScene)
-        
-        let dummyData = Directory(name: "My tests",
-                                  folders: [Directory(name: "장소",
-                                                      folders: [],
-                                                      items: [Item(name: "itme.py")])],
-                                  items: [Item(name: "asdasdasdas.txt")])
-        
-        
-        var nav = UINavigationController(rootViewController: FileBrowserViewController(directory: dummyData))
+        let folder = PersistenceController.shared.fetch(type: .parent)
+        let nav = UINavigationController(rootViewController: FileBrowserViewController(folder: folder))
         nav.navigationBar.prefersLargeTitles = true
+        
+        window = UIWindow(windowScene: windowScene)
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
     }
@@ -62,7 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        PersistenceController.shared.saveContext()
     }
     
     

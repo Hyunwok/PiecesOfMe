@@ -2,7 +2,7 @@
 //  Preferences+CoreDataClass.swift
 //  
 //
-//  Created by 이현욱 on 11/25/24.
+//  Created by 이현욱 on 11/29/24.
 //
 //
 

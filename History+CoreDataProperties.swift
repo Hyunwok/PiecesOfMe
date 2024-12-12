@@ -2,7 +2,7 @@
 //  History+CoreDataProperties.swift
 //  
 //
-//  Created by 이현욱 on 11/26/24.
+//  Created by 이현욱 on 11/29/24.
 //
 //
 
@@ -16,8 +16,9 @@ extension History {
         return NSFetchRequest<History>(entityName: "History")
     }
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var updateDate: Date?
+    @NSManaged public var id: UUID
+    @NSManaged public var updateDate: Date
     @NSManaged public var updateLevel: Int16
+    @NSManaged public var item: Preferences?
 
 }

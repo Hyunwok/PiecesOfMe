@@ -15,7 +15,7 @@
 		7C29FBC62CEF071F0075D7E1 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C29FBBC2CEF071F0075D7E1 /* FileBrowserViewController.swift */; };
 		7C9F0A642CF05ECE0090A2AF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9F0A632CF05EC60090A2AF /* Extension.swift */; };
 		7CB97FE42CF6F238002ED400 /* Persistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FE32CF6F238002ED400 /* Persistent.swift */; };
-		7CB97FE62CF6F8B4002ED400 /* TemporaryPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FE52CF6F8B4002ED400 /* TemporaryPreference.swift */; };
+		7CB97FE62CF6F8B4002ED400 /* PreferenceEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB97FE52CF6F8B4002ED400 /* PreferenceEntity.swift */; };
 		AB8F5CDC6480265C291C0C92 /* Pods_PiecesOfMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832AD5E9C3C2419B7E50CF18 /* Pods_PiecesOfMe.framework */; };
 		B40138E3361C1977AB8A6C3A /* Pods_PiecesOfMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874B37091D2EFBC27359D1FD /* Pods_PiecesOfMeTests.framework */; };
 /* End PBXBuildFile section */
@@ -52,16 +52,8 @@
 		7C5B10812CEE1FC3000D31FC /* PiecesOfMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiecesOfMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5B108B2CEE1FC3000D31FC /* PiecesOfMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiecesOfMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C9F0A632CF05EC60090A2AF /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		7CB97FD62CF5FB0F002ED400 /* Folder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Folder+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7CB97FD72CF5FB0F002ED400 /* Folder+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Folder+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7CB97FD82CF5FB0F002ED400 /* Preferences+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7CB97FD92CF5FB0F002ED400 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7CB97FDA2CF5FB0F002ED400 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7CB97FDB2CF5FB0F002ED400 /* Preferences+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7CB97FE32CF6F238002ED400 /* Persistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
-		7CB97FE52CF6F8B4002ED400 /* TemporaryPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryPreference.swift; sourceTree = "<group>"; };
-		7CB97FEB2CF70D84002ED400 /* Test+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Test+CoreDataClass.swift"; sourceTree = "<group>"; };
-		7CB97FEC2CF70D84002ED400 /* Test+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Test+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7CB97FE52CF6F8B4002ED400 /* PreferenceEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreferenceEntity.swift; path = ../../PreferenceEntity.swift; sourceTree = "<group>"; };
 		832AD5E9C3C2419B7E50CF18 /* Pods_PiecesOfMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiecesOfMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		874B37091D2EFBC27359D1FD /* Pods_PiecesOfMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiecesOfMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8604F138383C1966D74234B /* Pods-PiecesOfMe-PiecesOfMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiecesOfMe-PiecesOfMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-PiecesOfMe-PiecesOfMeUITests/Pods-PiecesOfMe-PiecesOfMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,27 +160,11 @@
 				7C29FBBB2CEF071F0075D7E1 /* SceneDelegate.swift */,
 				7C29FBBC2CEF071F0075D7E1 /* FileBrowserViewController.swift */,
 				7CB97FE32CF6F238002ED400 /* Persistent.swift */,
+				7CB97FE52CF6F8B4002ED400 /* PreferenceEntity.swift */,
 				7C256BDC2CEF4C7100DD59A9 /* AddPreferenceViewController.swift */,
 				7C256BDA2CEF1DDD00DD59A9 /* ItemTVC.swift */,
-				7CB97FDC2CF5FB0F002ED400 /* Model */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		7CB97FDC2CF5FB0F002ED400 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				7CB97FD62CF5FB0F002ED400 /* Folder+CoreDataClass.swift */,
-				7CB97FEB2CF70D84002ED400 /* Test+CoreDataClass.swift */,
-				7CB97FEC2CF70D84002ED400 /* Test+CoreDataProperties.swift */,
-				7CB97FD72CF5FB0F002ED400 /* Folder+CoreDataProperties.swift */,
-				7CB97FD82CF5FB0F002ED400 /* Preferences+CoreDataClass.swift */,
-				7CB97FD92CF5FB0F002ED400 /* History+CoreDataClass.swift */,
-				7CB97FDA2CF5FB0F002ED400 /* History+CoreDataProperties.swift */,
-				7CB97FDB2CF5FB0F002ED400 /* Preferences+CoreDataProperties.swift */,
-				7CB97FE52CF6F8B4002ED400 /* TemporaryPreference.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		AD7167D5C13E4D6F8F3AB843 /* Frameworks */ = {
@@ -290,7 +266,7 @@
 				};
 			};
 			buildConfigurationList = 7C5B10632CEE1FC1000D31FC /* Build configuration list for PBXProject "PiecesOfMe" */;
-			compatibilityVersion = "Xcode 15.3";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -462,7 +438,7 @@
 			files = (
 				7C9F0A642CF05ECE0090A2AF /* Extension.swift in Sources */,
 				7C29FBC32CEF071F0075D7E1 /* AppDelegate.swift in Sources */,
-				7CB97FE62CF6F8B4002ED400 /* TemporaryPreference.swift in Sources */,
+				7CB97FE62CF6F8B4002ED400 /* PreferenceEntity.swift in Sources */,
 				7CB97FE42CF6F238002ED400 /* Persistent.swift in Sources */,
 				7C29FBC52CEF071F0075D7E1 /* SceneDelegate.swift in Sources */,
 				7C256BDB2CEF1DDD00DD59A9 /* ItemTVC.swift in Sources */,
