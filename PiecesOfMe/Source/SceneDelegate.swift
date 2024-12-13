@@ -17,9 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+//        var firstEntity: FolderEntity
         
+//        if UserDefaults.standard.bool(forKey: "isFirst") {
+//            
+//            firstEntity = FolderEntity2(name: "Home", date: Date(), preferences: [], subFolders: [], parentFolder: nil)
+//            UserDefaults.standard.set(firstEntity, forKey: "FirstEntity")
+//            UserDefaults.standard.set(false, forKey: "isFirst")
+//        }
         // UIWindow 초기화 및 루트 뷰 컨트롤러 설정
-        let folder = PersistenceController.shared.fetch(type: .parent)
+        
+        guard let folder = try? CoreDataManager.shared.fetchHome() else { return }
         let nav = UINavigationController(rootViewController: FileBrowserViewController(folder: folder))
         nav.navigationBar.prefersLargeTitles = true
         
@@ -56,9 +64,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         
         // Save changes in the application's managed object context when the application transitions to the background.
-        PersistenceController.shared.saveContext()
+//        PersistenceController.shared.saveContext()
     }
-    
-    
 }
-
